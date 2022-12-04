@@ -10,7 +10,11 @@ import Data.Vector ( toList )
 
 
 getAllCommits = Github.commitsForR "r33drichards" "brev-cli" Github.FetchAll
+
 getCommits =  Github.executeRequest' getAllCommits
+
+
+
 
 
 
@@ -18,11 +22,11 @@ instance Controller StaticController where
     action GithubCommitsAction = do
         commits <-  getCommits
         case commits of
-            Left err -> do
-                setErrorMessage $ "Error: " <> tshow err
-                redirectTo WelcomeAction
             Right commits -> do
                 render GithubCommitsView { commits = Data.Vector.toList commits}
+            Left err -> do
+                render GithubCommitsView { commits = []}
+            
 
     action WelcomeAction = do 
         render WelcomeView{ 
