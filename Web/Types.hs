@@ -8,8 +8,7 @@ data WebApplication = WebApplication deriving (Eq, Show)
 
 
 data StaticController 
-    = WelcomeAction 
-    | GithubCommitsAction
+    = GithubCommitsAction
      deriving (Eq, Show, Data)
 
 data PostsController

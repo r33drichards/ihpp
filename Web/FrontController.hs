@@ -11,11 +11,13 @@ import Web.Controller.Static
 
 instance FrontController WebApplication where
     controllers = 
-        [ startPage WelcomeAction
+        [ startPage GithubCommitsAction
         -- Generator Marker
         , parseRoute @CommentsController
         , parseRoute @PostsController
+        , parseRoute @StaticController
         ]
+        
 
 instance InitControllerContext WebApplication where
     initContext = do
