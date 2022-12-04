@@ -12,11 +12,17 @@ renderCommit commit = [hsx|
     </div>
 |]
 
+filterForAuthor :: Text -> [Github.Commit] -> [Github.Commit]
+filterForAuthor author commits = filter (\commit -> 
+    Github.gitUserName (Github.gitCommitAuthor (Github.commitGitCommit commit)) == author) 
+    commits
+
+
 instance View GithubCommitsView where
     html GithubCommitsView { .. } = [hsx|
         <h1>GithubCommitsView</h1>
         <p>Here are the latest commits from the GitHub API</p>
         <ul>
-            {forEach commits renderCommit}
+            {forEach (reverse $ filterForAuthor "r33drichards" commits) renderCommit}
         </ul>
         |]

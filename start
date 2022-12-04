@@ -25,5 +25,13 @@ eval "$(direnv export bash)"
 # You can define custom env vars here:
 # export CUSTOM_ENV_VAR=".."
 
+# if .env exists, load it
+# TODO technically this should be done by direnv, but it doesn't work for some reason
+if [ -f .env ]; then
+    set -a
+    . .env
+    set +a
+fi
+
 # Finally start the dev server
 RunDevServer
